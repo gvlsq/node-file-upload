@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
+
+/*
+** Variables
+*/
+
+html {
+  --black: #020202;
+  --blue: #3bceff;
+  --gray: #959595;
+  --white: #ffffff;
+}
+
+/*
+** Global
+*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+/*
+** Images
+*/
+
+.progress-image {
+
+}
+
+.check-image {
+  filter: invert(89%) sepia(14%) saturate(2346%) hue-rotate(66deg) brightness(104%) contrast(101%);
+  width: 100%;
+  max-width: 25px;
+  height: auto;
+}
+
+.failure-image {
+
+}
+
+.document-image {
+  width: 100%;
+  max-width: 49px;
+  height: auto;
+}
+
+/*
+** Container
+*/
+
+.container {
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  padding: 61px 39px 39px 39px;
+  width: 483px;
+}
+
+.container > *:not(:first-child) {
+  margin-top: 39px;
+}
+
+.container h1 {
+  color: var(--black);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/*
+** Uploaded file
+*/
+
+.uploaded-file {
+  display: none; /* flex */
+  align-items: center;
+  gap: 16px;
+}
+
+/* @TODO: No reference to parent class? */
+.file-description {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.file-description h3 {
+  color: var(--black);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400; 
+}
+
+.file-description h4 {
+  color: var(--gray);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/*
+** Upload button
+*/
+
+.upload-area {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='13' ry='13' stroke='%23959595FF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 149px;
+}
+
+.upload-area h2 {
+  color: var(--gray);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.upload-area input[type="file"] {
+  display: none;
+}
+
+.upload-area label {
+  color: var(--gray);
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
