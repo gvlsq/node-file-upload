@@ -19,10 +19,13 @@
   },
   "homepage": "https://github.com/gvlsq/node-file-upload#readme",
   "dependencies": {
+    "consolidate": "^0.16.0",
     "express": "^4.17.1",
+    "handlebars": "^4.7.7",
     "multer": "^1.4.3"
   },
   "devDependencies": {
+    "@types/consolidate": "^0.14.1",
     "@types/express": "^4.17.13",
     "@types/node": "^16.11.9",
     "nodemon": "^2.0.15",

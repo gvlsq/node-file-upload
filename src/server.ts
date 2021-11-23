@@ -1,3 +1,6 @@
+import path from "path";
+
+import cons from "consolidate";
 import express, {
   Application,
   Request,
@@ -6,8 +9,19 @@ import express, {
 } from "express";
 
 const app: Application = express();
+
+app.engine("handlebars", cons.handlebars);
+app.set("view engine", "handlebars");
+app.set("views", path.resolve(__dirname, "../views"));
+
+app.use(express.static(path.resolve(__dirname, "../public")));
+
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.send("Hello");
+});
+
+app.get("/home", (req: Request, res: Response, next: NextFunction) => {
+  res.render("index");
 });
 
 app.listen(5000, () => {
