@@ -10,6 +10,8 @@ import express, {
 
 const app: Application = express();
 
+// Consolidate used here instead of express-handlebars because of a bug related
+// to this: https://stackoverflow.com/a/70010359
 app.engine("handlebars", cons.handlebars);
 app.set("view engine", "handlebars");
 app.set("views", path.resolve(__dirname, "../views"));
