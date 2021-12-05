@@ -1,3 +1,9 @@
+tmp
+
+#
+# BELOW THIS LINE ARE DEFAULT Node.js IGNORES
+#
+
 # Logs
 logs
 *.log
