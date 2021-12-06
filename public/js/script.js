@@ -20,8 +20,6 @@ class UI {
   }
 
   static addSpinner() {
-    console.log("CCCCCC");
-
     let div = document.createElement("div");
     div.id = "spinner";
     div.classList.add("spinner");
