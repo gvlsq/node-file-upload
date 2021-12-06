@@ -17,9 +17,6 @@ const uploadArea = document.getElementById("uploadArea");
   }, false);
 });
 uploadArea.addEventListener("drop", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
   const dataTransfer = e.dataTransfer;
   const files = dataTransfer.files;
 

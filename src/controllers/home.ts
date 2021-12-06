@@ -1,15 +1,7 @@
 import path from "path";
 
-import {
-  NextFunction,
-  Request,
-  Response
-} from "express";
+import actionBase from "../middleware/actionBase";
 
-export const indexAction = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.sendFile(path.join(__dirname, "../public", "index.html"));
-  } catch (error: any) {
-    next(error);
-  }
-}
+export const indexAction = actionBase((req, res, next) => {
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
+});
