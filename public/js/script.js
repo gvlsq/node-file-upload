@@ -19,6 +19,22 @@ class UI {
     });
   }
 
+  static addSpinner() {
+    console.log("CCCCCC");
+
+    let div = document.createElement("div");
+    div.id = "spinner";
+    div.classList.add("spinner");
+
+    const uploadArea = document.querySelector("#uploadArea");
+    
+    document.querySelector("#container").insertBefore(div, uploadArea);
+  }
+
+  static removeSpinner() {
+    document.querySelector("#spinner").remove();
+  }
+
   static addUploadedFile(fileData) {
     let fileName = fileData.originalName;
     if (fileName.length > 26)
@@ -33,10 +49,9 @@ class UI {
                      </div>
                      <img src="img/link.svg" class="link-image">`;
     
-    const container = document.querySelector("#container");
     const uploadArea = document.querySelector("#uploadArea");
     
-    container.insertBefore(div, uploadArea);
+    document.querySelector("#container").insertBefore(div, uploadArea);
   }
 }
 
@@ -100,6 +115,7 @@ document.querySelector("#uploadArea").addEventListener("drop", async (e) => {
   if (files.count < 1) return;
 
   const fileData = await Uploader.uploadFile(files[0]);
+  
   UI.addUploadedFile(fileData);
 });
 document.querySelector("#uploadFileInput").addEventListener("change", async (e) => {
@@ -108,6 +124,9 @@ document.querySelector("#uploadFileInput").addEventListener("change", async (e) 
 
   const file = files.item(0);
   
+  UI.addSpinner();
   const fileData = await Uploader.uploadFile(file);
+  UI.removeSpinner();
+
   UI.addUploadedFile(fileData);
 });
