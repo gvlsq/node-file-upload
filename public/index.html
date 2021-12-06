@@ -3,19 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload a File!</title>
+    <title>Upload an Image!</title>
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div id="container" class="container">
-      <h1 id="">Upload a File</h1>
+      <h1 id="">Upload an Image</h1>
       <form id="uploadArea" class="upload-area">
-        <h2>Drag and drop a file</h2>
+        <h2>Drag and drop an image</h2>
         <input id="uploadFileInput" type="file" accept="image/*" onchange="uploadFiles(this.files)">
-        <!--
-             For information on why there is no heading inside this label, see:
-             https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#headings
-        -->
         <label for="uploadFileInput">or <span class="underline">select one from your computer</span></label>
       </form>
     </div>

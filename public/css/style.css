@@ -59,6 +59,7 @@ body {
 }
 
 .link-image {
+  cursor: pointer;
   margin-bottom: 5px;
   width: 100%;
   max-width: 20px;
@@ -94,12 +95,12 @@ body {
 */
 
 .uploaded-file {
+  animation: append-animation 1s linear;
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-/* @TODO: No reference to parent class? */
 .file-description {
   display: flex;
   flex-direction: column;
@@ -119,6 +120,15 @@ body {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 13px;
   font-weight: 400;
+}
+
+@keyframes append-animation {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
 }
 
 /*

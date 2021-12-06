@@ -21,11 +21,9 @@ export const uploadAction = actionBase(async (req, res, next) => {
   
   res.status(201).json({
     success: true,
-    data: {
-      file: {
+    file: {
         originalName: file.originalname,
         size: file.size
-      }
     }
   });
 })
