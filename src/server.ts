@@ -13,6 +13,13 @@ import express, {
 import morganBody from "morgan-body";
 import multer from "multer";
 
+import {
+  indexAction
+} from "./controllers/home";
+import {
+  uploadAction
+} from "./controllers/upload";
+
 dotenv.config();
 
 const upload = multer({
@@ -30,37 +37,9 @@ morganBody(app, {
 
 app.use(express.static(path.resolve(__dirname, "../public")));
 
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.sendFile(path.join(__dirname, "../public", "index.html"));
-  } catch (error: any) {
-    next(error);
-  }
-});
-app.post("/upload", upload.single("file"), async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const file = req.file as Express.Multer.File;
-  
-    //
-    // This is where you would send the file to Azure Blob Storage, store it in a
-    // FILESTREAM, et cetera
-    //
+app.get("/", indexAction);
+app.post("/upload", upload.single("file"), uploadAction);
 
-    // Uncomment this line to delete the file stored in the temporary disk folder
-    // used by multer
-    // await fsPromises.unlink(file.path);
-    
-    res.status(201).json({
-      success: true,
-      file: {
-        originalName: file.originalname,
-        size: file.size
-      }
-    });
-  } catch (error: any) {
-    next(error);
-  }
-});
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const formattedMessage = `Exception thrown: ${err.message}`;
 

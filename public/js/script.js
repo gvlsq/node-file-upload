@@ -29,7 +29,6 @@ uploadArea.addEventListener("drop", (e) => {
 }, false);
 
 const uploadedFiles = document.getElementById("uploadedFiles");
-console.log(uploadedFiles);
 
 const formatByteCount = (byteCount) => {
   let iterations = 0;
@@ -63,10 +62,9 @@ const formatByteCount = (byteCount) => {
 }
 
 const truncateFileName = (fileName) => {
-  let result;
+  let result = fileName;
   
   const maxLength = 26;
-
   if (fileName.length > maxLength) {
     result = fileName.substr(0, maxLength - 1) + "..." + fileName.substr(fileName.length - 4, fileName.length);
   }
