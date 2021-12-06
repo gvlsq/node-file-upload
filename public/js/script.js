@@ -73,6 +73,11 @@ const uploadFiles = async (files) => {
   if (!Array.isArray(files)) files = Array.from(files);
 
   for (const file of files) {
+    if (file.type.substr(0, 6) != "image/") {
+      alert("Uploads must be images");
+      break;
+    }
+
     let formData = new FormData();
     formData.append("file", file);
 

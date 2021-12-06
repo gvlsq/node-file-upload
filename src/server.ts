@@ -17,15 +17,19 @@ const upload: Multer = multer({
 });
 
 const app: Application = express();
+
 morganBody(app, {
   logIP: false,
   logReqUserAgent: false,
   noColors: true,
   timezone: "Etc/UTC"
 });
+
 app.use(express.static(path.resolve(__dirname, "../public")));
+
 app.get("/", indexAction);
 app.post("/upload", upload.single("file"), uploadAction);
+
 app.use(exceptionHandler);
 
 const PORT = process.env.PORT || 5000;
