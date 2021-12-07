@@ -57,11 +57,15 @@ function uploadFile(e) {
   let file;
 
   if (e.target.files != undefined) {
+    // Dialog
     const files = e.target.files;
     if (files.length < 1) return;
     
     file = files.item(0);
+
+    e.target.value = null;
   } else {
+    // Drag 'n' drop
     const files = e.dataTransfer.files;
     if (files.count < 1) return;
 

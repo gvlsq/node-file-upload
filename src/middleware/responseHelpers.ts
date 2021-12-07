@@ -1,8 +1,4 @@
-import {
-  NextFunction,
-  Request,
-  Response
-} from "express";
+import {NextFunction, Request,Response} from "express";
 
 declare global {
   namespace Express {
