@@ -54,6 +54,12 @@ function uploadFile(e) {
     return result;
   }
 
+  function flipBackSlashes(text) {
+    const result = text.replace(/\\/g, "/");
+
+    return result;
+  }
+
   let file;
 
   if (e.target.files != undefined) {
@@ -99,11 +105,19 @@ function uploadFile(e) {
                        <h3>${fileName}</h3>
                        <h4>${formatByteCount(fileData.size)}</h4>
                      </div>
-                     <img src="img/link.svg" class="link-image">`;
+                     <div class="tooltip" onclick="copyToClipboard('${flipBackSlashes(fileData.path)}')">
+                       <span class="tooltip-text">Copy link</span>
+                       <img src="img/link.svg" class="link-image">
+                     </div>`;
     
     document.querySelector("#container").insertBefore(div, uploadArea);
   })
   .catch((error) => {
     alert(`Exception thrown: ${error.message}`);
   });
+}
+
+function copyToClipboard(text) {
+  console.log(text);
+  navigator.clipboard.writeText(text);
 }

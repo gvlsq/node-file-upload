@@ -7,6 +7,7 @@
 html {
   --black: #020202;
   --blue: #3bceff;
+  --dark-gray: #494949;
   --gray: #959595;
   --white: #ffffff;
 }
@@ -154,25 +155,49 @@ body {
 }
 
 /*
-** Spinner
+** Tooltip
+**
+** Inspiration for this tooltip CSS was taken from W3Schools, see:
+** w3schools.com/howto/tryit.asp?filename=tryhow_js_copy_clipboard2
 */
 
-.spinner {
-  animation: spin 2s linear infinite;
-  border: 12px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 12px solid #3b6cff;
-  width: 49px;
-  height: 49px;
-  margin: auto;
+.tooltip {
+  display: inline-block;
+  position: relative;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  
-  to {
-    transform: rotate(360deg);
-  }
+.tooltip .tooltip-text {
+  background-color: var(--dark-gray);
+  border-radius: 6px;
+  bottom: 150%;
+  left: 50%;
+  color: var(--white);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: -47px;
+  opacity: 0%;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  transition: opacity 0.3s;
+  visibility: hidden;
+  width: 95px;
+  z-index: 1;
+}
+
+.tooltip .tooltip-text::after {
+  border-color: var(--dark-gray) transparent transparent transparent;
+  border-width: 5px;
+  border-style: solid;
+  content: "";
+  position: absolute;
+  margin-left: -5px;
+  top: 100%;
+  left: 50%;
+}
+
+.tooltip:hover .tooltip-text {
+  opacity: 100%;
+  visibility: visible;
 }
