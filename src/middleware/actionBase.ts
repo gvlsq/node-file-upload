@@ -3,11 +3,11 @@ import {NextFunction, Request, Response} from "express";
 type ExpressRequest = (req: Request, res: Response, next: NextFunction) => void;
 
 const actionBase = (action: ExpressRequest) => {
-  const curried: ExpressRequest = async function (req, res, next) {
+  const curried: ExpressRequest = function (req, res, next) {
     try {
-      await Promise.resolve(action(req, res, next));
-    } catch (err: any) {
-      next(err);
+      Promise.resolve(action(req, res, next));
+    } catch (error: any) {
+      next(error);
     }
   }
 
