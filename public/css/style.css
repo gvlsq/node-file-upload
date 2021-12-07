@@ -37,21 +37,6 @@ body {
 ** Images
 */
 
-.progress-image {
-
-}
-
-.check-image {
-  filter: invert(89%) sepia(14%) saturate(2346%) hue-rotate(66deg) brightness(104%) contrast(101%);
-  width: 100%;
-  max-width: 25px;
-  height: auto;
-}
-
-.failure-image {
-
-}
-
 .document-image {
   width: 100%;
   max-width: 49px;

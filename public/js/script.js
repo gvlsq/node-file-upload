@@ -55,9 +55,6 @@ class UI {
 
 class Uploader {
   static async uploadFile(file) {
-    if (file.type.substr(0, 6) != "image/")
-      alert("Only images are accepted for upload");
-
     let formData = new FormData();
     formData.append("file", file);
 
@@ -67,7 +64,7 @@ class Uploader {
     });
     const responseJSON = await response.json();
 
-    const fileData = responseJSON.file;
+    const fileData = responseJSON.data.file;
 
     return fileData;
   }
@@ -109,11 +106,18 @@ class Helper {
 document.addEventListener("DOMContentLoaded", UI.init);
 document.querySelector("#uploadArea").addEventListener("drop", async (e) => {
   const dataTransfer = e.dataTransfer;
+  
   const files = dataTransfer.files;
   if (files.count < 1) return;
 
-  const fileData = await Uploader.uploadFile(files[0]);
-  
+  const file = files[0];
+  if (file.type.substr(0, 6) != "image/")
+    return alert("Only images are accepted for upload");
+
+  // UI.addSpinner();
+  const fileData = await Uploader.uploadFile(file);
+  // UI.removeSpinner();
+
   UI.addUploadedFile(fileData);
 });
 document.querySelector("#uploadFileInput").addEventListener("change", async (e) => {
@@ -121,10 +125,12 @@ document.querySelector("#uploadFileInput").addEventListener("change", async (e) 
   if (files.length < 1) return;
 
   const file = files.item(0);
+  if (file.type.substr(0, 6) != "image/")
+    return alert("Only images are accepted for upload");
   
-  UI.addSpinner();
+  // UI.addSpinner();
   const fileData = await Uploader.uploadFile(file);
-  UI.removeSpinner();
+  // UI.removeSpinner();
 
   UI.addUploadedFile(fileData);
 });

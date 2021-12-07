@@ -8,6 +8,7 @@ import multer, {Multer} from "multer";
 import {indexAction} from "./controllers/home";
 import {uploadAction} from "./controllers/upload";
 
+import responseHelpers from "./middleware/responseHelpers";
 import exceptionHandler from "./middleware/exceptionHandler";
 
 dotenv.config();
@@ -26,6 +27,8 @@ morganBody(app, {
 });
 
 app.use(express.static(path.resolve(__dirname, "../public")));
+
+app.use(responseHelpers);
 
 app.get("/", indexAction);
 app.post("/upload", upload.single("file"), uploadAction);

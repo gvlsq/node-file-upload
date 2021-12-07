@@ -1,15 +1,10 @@
 import {ErrorRequestHandler} from "express";
 
-import {HttpError, HttpStatusCode} from "../helpers/http";
-
 const exceptionHandler: ErrorRequestHandler = (err, req, res, next) => {
-  let code: HttpStatusCode = HttpStatusCode.InternalServerError;
-  if (err instanceof HttpError) code = err.code;
+  const formattedMessage = `Exception thrown: ${err.message}`;
 
-  res.status(code).json({
-    success: false,
-    error: err.message
-  });
+  console.error(formattedMessage);
+  res.internalServerError(formattedMessage);
 }
 
 export default exceptionHandler;
