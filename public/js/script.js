@@ -1,39 +1,90 @@
-class UI {
-  static init() {
-    const uploadArea = document.querySelector("#uploadArea");
-    ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-      uploadArea.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }, false);
-    });
-    ["dragenter", "dragover"].forEach((eventName) => {
-      uploadArea.addEventListener(eventName, (e) => {
-        uploadArea.classList.add("highlight");
-      }, false);
-    });
-    ["dragleave", "drop"].forEach((eventName) => {
-      uploadArea.addEventListener(eventName, (e) => {
-        uploadArea.classList.remove("highlight");
-      }, false);
-    });
+const uploadArea = document.querySelector("#uploadArea");
+const uploadFileInput = document.querySelector("#uploadFileInput");
+
+uploadArea.addEventListener("dragenter", disableDefaultBehavior);
+uploadArea.addEventListener("dragover", disableDefaultBehavior);
+uploadArea.addEventListener("dragleave", disableDefaultBehavior);
+uploadArea.addEventListener("drop", disableDefaultBehavior);
+
+uploadArea.addEventListener("dragenter", highlightElement);
+uploadArea.addEventListener("dragover", highlightElement);
+
+uploadArea.addEventListener("dragleave", unhighlightElement);
+uploadArea.addEventListener("drop", unhighlightElement);
+
+uploadArea.addEventListener("drop", uploadFile);
+uploadFileInput.addEventListener("change", uploadFile);
+
+function disableDefaultBehavior(e) {
+  e.preventDefault();
+  e.stopPropagation();  
+}
+
+function highlightElement(e) {
+  e.target.classList.add("highlight");
+}
+
+function unhighlightElement(e) {
+  e.target.classList.remove("highlight");
+}
+
+function uploadFile(e) {
+  function formatByteCount(byteCount) {
+    let result;
+
+    const kb = 1024;
+    const mb = 1024*kb;
+    const gb = 1024*mb;
+
+    if (byteCount > 1*gb)
+      result = `${truncate(byteCount / gb)} GB`;
+    else if (byteCount > 1*mb)
+      result = `${truncate(byteCount / mb)} MB`;
+    else if (byteCount > 1*kb)
+      result = `${truncate(byteCount / kb)} KB`;
+    else
+      result = `${truncate(byteCount)} B`;
+
+    return result;
   }
 
-  static addSpinner() {
-    let div = document.createElement("div");
-    div.id = "spinner";
-    div.classList.add("spinner");
+  function truncate(byteCount) {
+    const result = Math.floor(byteCount*100) / 100;
 
-    const uploadArea = document.querySelector("#uploadArea");
+    return result;
+  }
+
+  let file;
+
+  if (e.target.files != undefined) {
+    const files = e.target.files;
+    if (files.length < 1) return;
     
-    document.querySelector("#container").insertBefore(div, uploadArea);
+    file = files.item(0);
+  } else {
+    const files = e.dataTransfer.files;
+    if (files.count < 1) return;
+
+    file = files[0];
   }
 
-  static removeSpinner() {
-    document.querySelector("#spinner").remove();
-  }
+  if (file.type.substr(0, 6) != "image/")
+    return alert("Only images are accepted for upload");
 
-  static addUploadedFile(fileData) {
+  let formData = new FormData();
+  formData.append("file", file);
+
+  fetch("upload", {
+    method: "POST",
+    body: formData
+  })
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+
+    const fileData = data.data.file;
+
     let fileName = fileData.originalName;
     if (fileName.length > 26)
       fileName = fileName.substr(0, 26 - 1) + "..." + fileName.substr(fileName.length - 4, fileName.length);
@@ -43,94 +94,13 @@ class UI {
     div.innerHTML = `<img src="img/image.svg" class="document-image">
                      <div class="file-description">
                        <h3>${fileName}</h3>
-                       <h4>${Helper.formatByteCount(fileData.size)}</h4>
+                       <h4>${formatByteCount(fileData.size)}</h4>
                      </div>
                      <img src="img/link.svg" class="link-image">`;
     
-    const uploadArea = document.querySelector("#uploadArea");
-    
     document.querySelector("#container").insertBefore(div, uploadArea);
-  }
+  })
+  .catch((error) => {
+    alert(`Exception thrown: ${error.message}`);
+  });
 }
-
-class Uploader {
-  static async uploadFile(file) {
-    let formData = new FormData();
-    formData.append("file", file);
-
-    const response = await fetch("upload", {
-      method: "POST",
-      body: formData
-    });
-    const responseJSON = await response.json();
-
-    const fileData = responseJSON.data.file;
-
-    return fileData;
-  }
-}
-
-class Helper {
-  static formatByteCount(byteCount) {
-    let iterations = 0;
-    while (byteCount > 1024) {
-      byteCount /= 1024;
-
-      iterations++;
-      if (iterations === 3) break;
-    }
-
-    let result = `${Math.floor(byteCount*100) / 100} `;
-    switch (iterations) {
-      case 0:
-        result += "B";
-        break;
-
-      case 1:
-        result += "KB";
-        break;
-
-      case 2:
-        result += "MB";
-        break;
-
-      default:
-        result += "GB";
-        break;
-    }
-
-    return result;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", UI.init);
-document.querySelector("#uploadArea").addEventListener("drop", async (e) => {
-  const dataTransfer = e.dataTransfer;
-  
-  const files = dataTransfer.files;
-  if (files.count < 1) return;
-
-  const file = files[0];
-  if (file.type.substr(0, 6) != "image/")
-    return alert("Only images are accepted for upload");
-
-  // UI.addSpinner();
-  const fileData = await Uploader.uploadFile(file);
-  // UI.removeSpinner();
-
-  UI.addUploadedFile(fileData);
-});
-document.querySelector("#uploadFileInput").addEventListener("change", async (e) => {
-  const files = e.target.files;
-  if (files.length < 1) return;
-
-  const file = files.item(0);
-  if (file.type.substr(0, 6) != "image/")
-    return alert("Only images are accepted for upload");
-  
-  // UI.addSpinner();
-  const fileData = await Uploader.uploadFile(file);
-  // UI.removeSpinner();
-
-  UI.addUploadedFile(fileData);
-});
