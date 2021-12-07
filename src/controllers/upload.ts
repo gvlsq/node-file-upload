@@ -1,14 +1,11 @@
 import {promises as fsPromises} from "fs";
 
-import {
-  NextFunction,
-  Request,
-  Response
-} from "express";
+import {NextFunction, Request, Response} from "express";
 
 import actionBase from "../middleware/actionBase";
+import {FileResponse} from "../middleware/responseHelpers";
 
-import {FileResponse, isUndefined} from "../helpers/types";
+import {isUndefined} from "../helpers/types";
 
 export const uploadAction = actionBase(async (req: Request, res: Response, next: NextFunction) => {
   const file = req.file as Express.Multer.File;
@@ -32,7 +29,8 @@ export const uploadAction = actionBase(async (req: Request, res: Response, next:
   // await fsPromises.unlink(file.path);
 
   const response: FileResponse = {
-    originalName: file.originalname,
+    name: file.originalname,
+    path: file.path,
     size: file.size
   };
 

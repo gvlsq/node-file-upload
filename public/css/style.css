@@ -128,7 +128,6 @@ body {
   justify-content: center;
   align-items: center;
   height: 149px;
-  transition: background-image 0.5s;
 }
 
 .upload-area.highlight {

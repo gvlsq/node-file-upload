@@ -82,10 +82,9 @@ function uploadFile(e) {
     return response.json();
   })
   .then((data) => {
-
     const fileData = data.data.file;
 
-    let fileName = fileData.originalName;
+    let fileName = fileData.name;
     if (fileName.length > 26)
       fileName = fileName.substr(0, 26 - 1) + "..." + fileName.substr(fileName.length - 4, fileName.length);
 

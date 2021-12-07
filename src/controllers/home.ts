@@ -1,10 +1,6 @@
 import path from "path";
 
-import {
-  NextFunction,
-  Request,
-  Response
-} from "express";
+import {NextFunction, Request, Response} from "express";
 
 import actionBase from "../middleware/actionBase";
 
