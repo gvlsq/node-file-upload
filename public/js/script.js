@@ -54,7 +54,7 @@ function uploadFile(e) {
     return result;
   }
 
-  function flipBackSlashes(text) {
+  function flipBackslashes(text) {
     const result = text.replace(/\\/g, "/");
 
     return result;
@@ -92,7 +92,7 @@ function uploadFile(e) {
     return response.json();
   })
   .then((data) => {
-    const fileData = data.data.file;
+    const fileData = data.data;
 
     let fileName = fileData.name;
     if (fileName.length > 26)
@@ -105,7 +105,7 @@ function uploadFile(e) {
                        <h3>${fileName}</h3>
                        <h4>${formatByteCount(fileData.size)}</h4>
                      </div>
-                     <div class="tooltip" onclick="copyToClipboard('${flipBackSlashes(fileData.path)}')">
+                     <div class="tooltip" onclick="copyToClipboard('${flipBackslashes(fileData.path)}')">
                        <span class="tooltip-text">Copy link</span>
                        <img src="img/link.svg" class="link-image">
                      </div>`;
@@ -118,6 +118,5 @@ function uploadFile(e) {
 }
 
 function copyToClipboard(text) {
-  console.log(text);
   navigator.clipboard.writeText(text);
 }

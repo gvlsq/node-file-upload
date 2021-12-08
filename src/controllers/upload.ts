@@ -2,8 +2,9 @@ import {promises as fsPromises} from "fs";
 
 import {NextFunction, Request, Response} from "express";
 
+import {File} from "../models/File";
+
 import actionBase from "../middleware/actionBase";
-import {FileResponse} from "../middleware/responseHelpers";
 
 import {isUndefined} from "../helpers/types";
 
@@ -28,11 +29,7 @@ export const uploadAction = actionBase(async (req: Request, res: Response, next:
   // in the temporary folder on disk
   // await fsPromises.unlink(file.path);
 
-  const response: FileResponse = {
-    name: file.originalname,
-    path: file.path,
-    size: file.size
-  };
+  const response: File = new File(file.originalname, file.path, file.size);
 
   res.created(response);
 })

@@ -5,7 +5,7 @@ declare global {
     interface Response {
       // 2XX
       ok: (o: object) => void
-      created: (o: FileResponse) => void
+      created: (o: object) => void
       
       // 4XX
       badRequest: (message: string) => void
@@ -15,12 +15,6 @@ declare global {
       internalServerError: (message: string) => void
     }
   }
-}
-
-export type FileResponse = {
-  name: string;
-  path: string;
-  size: Number;
 }
 
 type JSONResponse = {
@@ -43,11 +37,8 @@ const responseHelpers = (req: Request, res: Response, next: NextFunction) => {
     successResponse.data = o;
     res.status(200).json(successResponse);
   }
-  res.created = (o: FileResponse) => {
-    successResponse.data = {
-      file: o
-    };
-
+  res.created = (o: object) => {
+    successResponse.data = o;
     res.status(201).json(successResponse);
   }
   
