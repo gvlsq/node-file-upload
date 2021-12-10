@@ -118,7 +118,7 @@ body {
 }
 
 /*
-** Upload button
+** Upload area
 */
 
 .upload-area {
@@ -129,6 +129,10 @@ body {
   justify-content: center;
   align-items: center;
   height: 149px;
+}
+
+.upload-area * {
+  pointer-events: none;
 }
 
 .upload-area.highlight {
@@ -157,7 +161,7 @@ body {
 /*
 ** Tooltip
 **
-** Inspiration for this tooltip CSS was taken from W3Schools, see:
+** This tooltip CSS was taken from W3Schools, see:
 ** w3schools.com/howto/tryit.asp?filename=tryhow_js_copy_clipboard2
 */
 
