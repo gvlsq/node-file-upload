@@ -15,6 +15,10 @@ uploadArea.addEventListener("drop", unhighlightElement);
 uploadArea.addEventListener("drop", uploadFile);
 uploadFileInput.addEventListener("change", uploadFile);
 
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text);
+}
+
 function disableDefaultBehavior(e) {
   e.preventDefault();
   e.stopPropagation();  
@@ -81,6 +85,9 @@ function uploadFile(e) {
   if (file.type.substr(0, 6) != "image/")
     return alert("Only images are accepted for upload");
 
+  if (file.size > 12*1024*1024)
+    return alert("Image uploads must be 12 MB or smaller in size");
+
   let formData = new FormData();
   formData.append("file", file);
 
@@ -115,8 +122,4 @@ function uploadFile(e) {
   .catch((error) => {
     alert(`Exception thrown: ${error.message}`);
   });
-}
-
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text);
 }

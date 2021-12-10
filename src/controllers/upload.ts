@@ -17,8 +17,8 @@ export const uploadAction = actionBase(async (req: Request, res: Response, next:
   if (file.mimetype.substr(0, 6) != "image/")
     return res.unsupportedMediaType(`MIME type ${file.mimetype} is not supported for image uploads`);
 
-  if (file.size > 64*1024*1024)
-    return res.badRequest("Image uploads must be 64 MB or smaller in size");
+  if (file.size > 12*1024*1024)
+    return res.badRequest("Image uploads must be 12 MB or smaller in size");
 
   //
   // This is where you would send the file to Azure Blob Storage, store it in a
