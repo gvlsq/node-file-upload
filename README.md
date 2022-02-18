@@ -19,6 +19,13 @@ Behind the scenes, Multer uploads the image to the folder at `/tmp/uploads` in t
 Additionally, the MIME type and file size of the image are validated in the controller, and appropriate
 HTTP status codes are returned when validation fails.
 
+## Improvements
+
+* CSRF
+    * CSRF tokens can be added to all HTML forms returned by the web server to protect against CSRF attacks
+* XSS
+    * The web server can validate input and encode/escape HTML output to protect against XSS attacks
+
 ## License
 
 See the [LICENSE](https://github.com/gvlsq/node-image-upload/blob/main/LICENSE) file.
