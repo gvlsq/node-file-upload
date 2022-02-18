@@ -1,4 +1,4 @@
-# Image upload in Node.js
+# Image upload in Node.js with TypeScript
 
 This web server implements image upload using Node.js with TypeScript.
 
