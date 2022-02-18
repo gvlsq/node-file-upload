@@ -12,12 +12,12 @@ line and enter `npm install`. Then, run the project in development mode by enter
 ## Usage
 
 The web API at `POST /upload` accepts an image upload and uses Multer to make that image accessible
-in code. From there, the image could be stored wherever the user decides - most commonly a blob storage
-or FILESTREAM in SQL Server.
+in code. From there, the image could be stored wherever the user decides (e.g. blob storage, SQL Server
+`FILESTREAM`).
 
 Behind the scenes, Multer uploads the image to the folder at `/tmp/uploads` in the project's root.
-Additionally, the MIME type and file size of the image are validated, and appropriate HTTP status codes
-are returned when validation fails.
+Additionally, the MIME type and file size of the image are validated in the controller, and appropriate
+HTTP status codes are returned when validation fails.
 
 ## License
 
